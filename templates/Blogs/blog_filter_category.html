@@ -1,0 +1,14 @@
+{% extends "Blogs/base.html" %}
+{% block content %}
+    <div class="col-sm-8 blog-main">
+        <div class="breadcrumbContainer">
+            <ol class="breadcrumb">
+              <li><a href="/">主页</a></li>
+              <li class="active">分类 : {{ currentCategory }}</li>
+            </ol>
+        </div>
+        {% include "Blogs/blog_list.html" %}
+        <div class="pagerContainer">{% include "Function/page.html" %}</div>
+    </div><!-- /.blog-main -->
+{% endblock %}
+{% block category %}{% include 'Blogs/categories.html' %}{% endblock %}

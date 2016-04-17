@@ -1,0 +1,34 @@
+{% load filter_extras %}
+{% for blog in blogs %}
+    {% with blog.content|filter_extras:searchResult.searchString as filterContent %}
+    {% with blog.caption|filter_extras:searchResult.searchString as filterCaptain %}
+    {% if filterContent != '' or filterCaptain != '' %}
+    <div class="blog-post">
+        <div class="blog-post-title-container">
+            <h2 class="blog-post-title">
+                {% autoescape off %}{{ filterCaptain }}{% endautoescape %}
+            </h2>
+            <div class="blog-post-meta">
+                {{ blog.publish_time|date:"m-d Y H:m:s" }} by <a href="#">{{ blog.author }}</a>
+            </div>
+        </div><!-- /.blog-post-title-container -->
+        <div class="blog-post-content-list">
+            {% autoescape off %}
+                {{ filterContent | truncatechars_html:150 }}
+            {% endautoescape %}
+        </div><!-- /.blog-post-content -->
+        <div class="blog-post-footer">
+            <a href="{% url "blog_show" blog.url %}"><b>阅读全文</b></a>&nbsp;&nbsp;&nbsp;/
+            {% for commObj in comments%}
+                {% ifequal commObj.id blog.id %}
+                    <span class="blog-post-small-tips">已阅{{ commObj.viewCount }}</span>/
+                    <span class="blog-post-small-tips">评论{{ commObj.NumCount }}</span>/
+                    <span class="blog-post-small-tips">赞{{ commObj.praiseCount }}</span>
+                {% endifequal %}
+            {% endfor %}
+        </div><!-- /.blog-post-footer -->
+    </div><!-- /.blog-post -->
+    {% endif %}
+    {% endwith %}
+    {% endwith %}
+{% endfor %}

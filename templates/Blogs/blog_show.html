@@ -1,0 +1,47 @@
+{% extends "Blogs/base.html" %}
+{% load filter_lazyImage %}
+{% block title %}{{ blog.caption }}{% endblock %}
+{% block metaDescription %}{{ blog.content|truncatechars_html:150|striptags }}{% endblock %}
+{% block keywords %}{% for keyword in keywords %}{{ keyword.tag_name }},{% endfor %}{% endblock %}
+{% block canonical %}{{ domain }}{% endblock %}
+{% block content %}
+    {% with blog.content|filter_lazyImage as imgFilterBlogContent %}
+    <div class="breadcrumbContainer">
+        <ol class="breadcrumb">
+          <li><a href="/">主页</a></li>
+          <li class="active">{{ blog.caption }}</li>
+        </ol>
+    </div>
+    <div class="col-sm-8 blog-main">
+        <div class="blog-post">
+            <div class="blog-post-title-container-show">
+                <h2 class="blog-post-title">{{ blog.caption }}</h2>
+                <div class="blog-post-meta">
+                    {{ blog.publish_time|date:"m-d Y H:m:s" }} by <a href="#">{{ blog.author }}</a>
+                </div>
+            </div>
+            <div class="blog-copyright-area">
+                {% autoescape off %}
+                {{ blog.description }}
+                {% endautoescape %}
+            </div>
+            <div class="blog-post-content">
+                {% autoescape off %}
+                {{ imgFilterBlogContent }}
+                {% endautoescape %}
+            </div>
+            <form id="scoreForm" action="" method="post">
+                {% csrf_token %}
+                <div class="blog-post-score">
+                    <i class="glyphicon glyphicon-eye-open" aria-hidden="true"></i><span class="blog-post-small-tips" id="spanEyeOpen">1</span>
+                    <i class="glyphicon glyphicon-thumbs-up" aria-hidden="true" style="cursor: pointer;" ></i><span class="blog-post-small-tips" id="spanThumbsUp">0</span>
+                </div>
+            </form>
+        </div><!-- /.blog-post -->
+
+        {% endwith %} <!-- /imgFilterContent -->
+
+        {% include "Function/message_board.html" %}
+    </div>
+{% endblock %}
+{% block category %}{% include 'Blogs/categories.html' %}{% endblock %}

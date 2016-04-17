@@ -1,0 +1,51 @@
+<div class="col-sm-3 blog-sidebar hidden-xs">
+    <div class="pinned">
+        {% if showCatalogue %}
+        <div id="catalogue" class="sidebar-module-content">
+            文章目录：
+            <div class="toc"></div>
+        </div>
+        {% endif %}
+    </div>
+    <div class="sidebar-module sidebar-module-inset">
+        <h4>WELCOME</h4>
+        <p>分享Python, Java, HTTP等文章</p>
+    </div>
+    <div class="sidebar-module">
+        <h4>分类</h4>
+        <ol class="list-unstyled">
+            {% for category in categories %}
+                <li><a href="{% url "blog_filter_category" category.category_name %}">{{ category }}
+                {% for CatCountObj in categories_count%}
+                    {% ifequal CatCountObj.category_name category.category_name%}({{ CatCountObj.NumCount }}){% endifequal %}
+                {% endfor %}</a></li>
+            {% endfor %}
+        </ol>
+    </div>
+    <div class="sidebar-module">
+    <h4>标签</h4>
+        {% block tags %}
+            {% for tag in tags %}
+                {% if tag == currentTag %}
+                    <a href="{% url "blog_filter_tag" tag.tag_name %}" class="btn btn-success btn-xs">{{ tag }}</a>
+                {% else %}
+                    <a href="{% url "blog_filter_tag" tag.tag_name %}" class="btn btn-info btn-xs">{{ tag }}</a>
+                {% endif %}
+            {% endfor %}
+        {% endblock %}
+    </div>
+    <div class="sidebar-module">
+    <h4>阅读排行</h4>
+         {% for view in topView %}
+            <a href="{% url "blog_show" view.url %}" data-toggle="tooltip" title="{{ view.caption }}" data-placement="right">{{ forloop.counter }}.&nbsp;{{ view.caption|truncatechars:20 }}</a>
+             <span class="topView_Count">{{ view.viewCount }}</span></br>
+        {% endfor %}
+    </div>
+</div>    <!-- /.blog-sidebar -->
+<!--Back up to top-->
+<a class="backtop hidden-xs" href="javascript:void" style="display: inline;" >
+    <img src="/static/img/back-top.png" title="回到顶部" width="25" />
+</a>
+<a class="backbtm hidden-xs" href="javascript:void" style="display: inline;" >
+    <img src="/static/img/back-btm.png" title="跳到底部" width="25" />
+</a>

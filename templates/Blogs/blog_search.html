@@ -1,0 +1,15 @@
+{% extends "Blogs/base.html" %}
+{% block title %}搜索{{ searchResult.searchString }}结果{% endblock %}
+{% block content %}
+    <div class="breadcrumbContainer">
+        <ol class="breadcrumb">
+          <li><a href="/">主页</a></li>
+          <li class="active">搜索 : <span class="searchResult">{{ searchResult.searchString }}</span></li>
+        </ol>
+    </div>
+    <div class="col-sm-8 blog-main">
+        {% include "Blogs/blog_search_list.html" %}
+        <div class="pagerContainer">{% include "Function/page.html" %}</div>
+    </div><!-- /.blog-main -->
+{% endblock %}
+{% block category %}{% include 'Blogs/categories.html' %}{% endblock %}

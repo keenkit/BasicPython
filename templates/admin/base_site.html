@@ -1,0 +1,30 @@
+{% extends "admin/base.html" %}
+{% load i18n %}
+
+{% block title %}{{ title }} | {% trans 'Django site admin' %}{% endblock %}
+
+{% block branding %}
+    <script src="http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="/static/tiny_mce/tiny_mce.js"></script>
+    <script type="text/javascript" src="/static/tiny_mce/tinymce_config.js"></script>
+    <script language="JavaScript">
+    $(document).ready(function() {
+        $("input[name='_save']").click(function(){
+            var param = "";
+            var article_id_regexp = /\/(\d+)\//;
+            var match = article_id_regexp.exec(window.location.href);
+            if (match != null) { param = match[1]; }
+            clear_cache(param);
+            //return false;
+        });
+
+        function clear_cache(arg) {
+            var uriAnn = '/service/clearCache?token=WillHu&id=' + arg;
+                $.getJSON(uriAnn).done(function (data) { });
+        }
+    });
+
+    </script>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}

@@ -1,0 +1,61 @@
+<div class="detailBox">
+    <div class="titleBox">
+      <label><span id="messageLength">载入评论:</span></label>
+    </div>
+    <div class="actionBox">
+        <ul class="commentList" id="commentList">
+            <li>
+                <div class="windows8">
+                    <div class="wBall" id="wBall_1"><div class="wInnerBall"></div></div>
+                    <div class="wBall" id="wBall_2"><div class="wInnerBall"></div></div>
+                    <div class="wBall" id="wBall_3"><div class="wInnerBall"></div></div>
+                    <div class="wBall" id="wBall_4"><div class="wInnerBall"></div></div>
+                    <div class="wBall" id="wBall_5"><div class="wInnerBall"></div></div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <form class="form-horizontal" id="commentForm" action="" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="article_id" id="article_id" value="{{ blog.id }}" />
+        <div class="form-group">
+            <label for="userName" class="col-sm-2 control-label">昵称</label>
+            <div class="col-sm-5">
+                <input type="text" class="form-control" name="userName" id="userName" placeholder="您的昵称（必填），双击随机生成" ondblclick="fillRandomName(this);">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="userContact" class="col-sm-2 control-label">联系方式</label>
+            <div class="col-sm-5">
+                <input type="text" class="form-control input-" name="userContact" placeholder="联系方式（可选），不会公开您的联系方式">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="messageContent" class="col-sm-2 control-label">评论</label>
+            <div class="col-sm-9">
+                <textarea class="form-control" style="background: #fff7e5;"
+                          id="messageContent" name="messageContent" rows="4" placeholder="说点什么吧 :)"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-9">
+                <div class="commentTips">
+                    You may use these HTML tags and attributes:
+                    <span id="sp_comment_a">&lt;a href=&quot;&quot;&gt;,</span>
+                    <span id="sp_comment_p">&lt;p&gt;, </span>
+                    <span id="sp_comment_b">&lt;b&gt;, </span>
+                    <span id="sp_comment_strong">&lt;strong&gt;, </span>
+                    <span id="sp_comment_pre">&lt;pre&gt;(insert code)</span>, etc.
+                </div>
+                <div id="commentReview"></div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-info">提交</button>
+            </div>
+        </div>
+    </form>
+
+</div>

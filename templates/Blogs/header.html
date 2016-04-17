@@ -1,0 +1,25 @@
+{% block header %}
+    {% block menu %}
+
+    <div class="announcement"></div>
+    <div class="blog-masthead hidden-xs">
+      <div class="container">
+        <nav class="blog-nav">
+            <a href="/" class="blog-nav-item-logo"><img alt="Monty Lounge Industries" src="/static/img/logo87877288.png" ></a>
+             <form class="navbar-form navbar-right blog-nav-item-right" method="post" action="{% url "blog_search" %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <input name="txtSearch" type="text" class="form-control" placeholder="站内搜索..." />
+                </div>
+                <div class="form-group blog-nav-item-search-logo">
+                    <a href="javascript:void(0);" onclick="$(this).closest('form').submit();">
+                        <i class="glyphicon glyphicon-search" aria-hidden="true"></i>
+                    </a>
+                </div>
+            </form>
+        </nav>
+      </div>
+    </div>
+
+    {% endblock %}
+{% endblock %}
