@@ -44,7 +44,7 @@ def comment_list(request):
 def clear_caches(request):
     if request.method == 'GET':
         try:
-            if str(request.GET.get('token', '')) == 'WillHu':
+            if str(request.GET.get('token', '')) == 'XXXXX':
                 BlogHelper.clear_caches(KEY_BLOGLIST, KEY_TAGS, KEY_CATEGORIES, KEY_TOP_VIEW)
         except:
             pass
